@@ -1,0 +1,9 @@
+
+= PHP Selector
+
+Quick DOM query library I whipped up for an old
+PHP data miner I had which needed more flexibility.
+
+Current supports most CSS3 selectors.
+
+== Examples

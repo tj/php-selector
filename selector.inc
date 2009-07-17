@@ -1,5 +1,22 @@
 <?php
 
+// --- Selector.inc - (c) Copyright TJ Holowaychuk <tj@vision-media.ca> MIT Licensed
+
+define('SELECTOR_VERSION', '1.0.0');
+
+/**
+ * Select elements from $html using the css $selector.
+ * When $as_array is true elements and their children will
+ * be converted to array's containing the following keys:
+ *
+ *  - name : element name
+ *  - text : element text
+ *  - children : array of children elements
+ *  - attributes : attributes array
+ *
+ * Otherwise regular DOMElement's will be returned.
+ */
+
 function select_elements($selector, $html, $as_array = true) {
   $dom = new DOMDocument();
   $dom->loadHTML($html);
@@ -8,6 +25,10 @@ function select_elements($selector, $html, $as_array = true) {
   return $as_array ? elements_to_array($elements) : $elements;
 }
 
+/**
+ * Convert $elements to an array.
+ */
+
 function elements_to_array($elements) {
   $array = array();
   for ($i = 0, $length = $elements->length; $i < $length; ++$i)
@@ -15,6 +36,10 @@ function elements_to_array($elements) {
       array_push($array, element_to_array($elements->item($i)));
   return $array;
 }
+
+/**
+ * Convert $element to an array.
+ */
 
 function element_to_array($element) {
   $array = array(
@@ -27,6 +52,10 @@ function element_to_array($element) {
     $array['attributes'][$key] = $attr->value;
   return $array;
 }
+
+/**
+ * Convert $selector into an XPath string.
+ */
 
 function selector_to_xpath($selector) {
   $selector = 'descendant-or-self::' . $selector;
