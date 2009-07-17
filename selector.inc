@@ -1,10 +1,11 @@
 <?php
 
-function select_elements($selector, $html) {
+function select_elements($selector, $html, $as_array = true) {
   $dom = new DOMDocument();
   $dom->loadHTML($html);
   $xpath = new DOMXpath($dom);
-  return elements_to_array($xpath->evaluate(selector_to_xpath($selector)));
+  $elements = $xpath->evaluate(selector_to_xpath($selector));
+  return $as_array ? elements_to_array($elements) : $elements;
 }
 
 function elements_to_array($elements) {
