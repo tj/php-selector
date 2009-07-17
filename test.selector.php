@@ -89,4 +89,8 @@ test_selector('li:nth-child(3)', 1);
 test_selector('li:nth-child(4)', 1);
 test_selector('li:nth-child(6)', 0);
 
+$dom = new SelectorDom($html);
+print count($dom->select('a')) == 1 ? '.' : 'SelectorDOM failed';
+print count($dom->select('ul li a')) == 1 ? '.' : 'SelectorDOM failed';
+
 print "\n";

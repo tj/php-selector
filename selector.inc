@@ -5,6 +5,31 @@
 define('SELECTOR_VERSION', '1.0.0');
 
 /**
+ * SelectorDOM.
+ *
+ * Persitant object for selecting elements.
+ *
+ *   $dom = new SelectorDOM($html);
+ *   $links = $dom->select('a');
+ *   $list_links = $dom->select('ul li a');
+ *
+ */
+
+class SelectorDOM {
+  public function SelectorDOM($html) {
+    $this->html = $html;
+    $this->dom = new DOMDocument();
+    $this->dom->loadHTML($html);
+    $this->xpath = new DOMXpath($this->dom);
+  }
+  
+  public function select($selector, $as_array = true) {
+    $elements = $this->xpath->evaluate(selector_to_xpath($selector));
+    return $as_array ? elements_to_array($elements) : $element;
+  }
+}
+
+/**
  * Select elements from $html using the css $selector.
  * When $as_array is true elements and their children will
  * be converted to array's containing the following keys (defaults to true):
@@ -18,11 +43,8 @@ define('SELECTOR_VERSION', '1.0.0');
  */
 
 function select_elements($selector, $html, $as_array = true) {
-  $dom = new DOMDocument();
-  $dom->loadHTML($html);
-  $xpath = new DOMXpath($dom);
-  $elements = $xpath->evaluate(selector_to_xpath($selector));
-  return $as_array ? elements_to_array($elements, $options) : $elements;
+  $dom = new SelectorDOM($html);
+  return $dom->select($selector, $as_array);
 }
 
 /**

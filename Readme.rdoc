@@ -33,6 +33,14 @@ The following will return an array of elements:
   select_elements('ul > li ~ li', $html);
   select_elements('ul > li:last-child', $html);
   select_elements('li a[href=#]', $html);
+  
+== SelectorDOM
+
+Persistant object for element selection.
+
+  $dom = new SelectorDOM($html);
+  $links = $dom->select('a');
+  $list_links = $dom->select('ul li a');
 
 == Contribution
 
