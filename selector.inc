@@ -82,6 +82,8 @@ function element_to_array($element) {
 
 function selector_to_xpath($selector) {
   $selector = 'descendant-or-self::' . $selector;
+  // ,
+  $selector = preg_replace('/\s*,\s*/', '|descendant-or-self::', $selector);
   // :button, :submit, etc
   $selector = preg_replace('/:(button|submit|file|checkbox|radio|image|reset|text|password)/', 'input[@type="\1"]', $selector);
   // [id]

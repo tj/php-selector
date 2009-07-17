@@ -14,6 +14,7 @@ function test($selector, $expected) {
 }
 
 test('foo',                 'descendant-or-self::foo');
+test('foo, bar',            'descendant-or-self::foo|descendant-or-self::bar');
 test('foo bar',             'descendant-or-self::foo/descendant::bar');
 test('foo    bar',          'descendant-or-self::foo/descendant::bar');
 test('foo > bar',           'descendant-or-self::foo/bar');
@@ -62,6 +63,9 @@ HTML;
 
 test_selector('*', 12);
 test_selector('div', 1);
+test_selector('div, p', 2);
+test_selector('div , p', 2);
+test_selector('div ,p', 2);
 test_selector('div#article', 1);
 test_selector('div#article.block', 1);
 test_selector('div#article.large.block', 1);
