@@ -6,6 +6,8 @@ PHP data miner I had which needed more flexibility.
 
 Current supports most CSS3 selectors.
 
+Tested with php 5.2.8
+
 == Examples
 
 Given the sample html:

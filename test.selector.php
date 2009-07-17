@@ -92,5 +92,7 @@ test_selector('li:nth-child(6)', 0);
 $dom = new SelectorDom($html);
 print count($dom->select('a')) == 1 ? '.' : 'SelectorDOM failed';
 print count($dom->select('ul li a')) == 1 ? '.' : 'SelectorDOM failed';
+$divs = $dom->select('div');
+print $divs[0]['attributes']['id'] == 'article' ? '.' : 'Attributes failed';
 
 print "\n";

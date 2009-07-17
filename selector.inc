@@ -70,8 +70,9 @@ function element_to_array($element) {
     'text' => $element->textContent,
     'children' =>elements_to_array($element->childNodes)
     );
-  foreach((array) $element->attributes as $key => $attr)
-    $array['attributes'][$key] = $attr->value;
+  if ($element->attributes->length)
+    foreach($element->attributes as $key => $attr)
+      $array['attributes'][$key] = $attr->value;
   return $array;
 }
 
