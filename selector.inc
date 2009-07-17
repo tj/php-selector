@@ -19,7 +19,7 @@ class SelectorDOM {
   public function SelectorDOM($html) {
     $this->html = $html;
     $this->dom = new DOMDocument();
-    $this->dom->loadHTML($html);
+    @$this->dom->loadHTML($html);
     $this->xpath = new DOMXpath($this->dom);
   }
   
