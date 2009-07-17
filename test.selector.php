@@ -66,6 +66,7 @@ test_selector('div', 1);
 test_selector('div, p', 2);
 test_selector('div , p', 2);
 test_selector('div ,p', 2);
+test_selector('div, p, ul li a', 3);
 test_selector('div#article', 1);
 test_selector('div#article.block', 1);
 test_selector('div#article.large.block', 1);
