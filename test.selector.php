@@ -60,6 +60,7 @@ $html = <<<HTML
   </div>
 HTML;
 
+test_selector('*', 12);
 test_selector('div', 1);
 test_selector('div#article', 1);
 test_selector('div#article.block', 1);
@@ -75,6 +76,7 @@ test_selector('div[id="article"]', 1);
 test_selector('h2:contains(Article)', 1);
 test_selector('h2:contains(Article) + p', 1);
 test_selector('h2:contains(Article) + p:contains(Contents)', 1);
+test_selector('div p + ul', 1);
 test_selector('li ~ li', 4);
 test_selector('li ~ li ~ li', 3);
 test_selector('li + li', 4);

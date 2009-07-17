@@ -7,7 +7,7 @@ define('SELECTOR_VERSION', '1.0.0');
 /**
  * Select elements from $html using the css $selector.
  * When $as_array is true elements and their children will
- * be converted to array's containing the following keys:
+ * be converted to array's containing the following keys (defaults to true):
  *
  *  - name : element name
  *  - text : element text
@@ -22,7 +22,7 @@ function select_elements($selector, $html, $as_array = true) {
   $dom->loadHTML($html);
   $xpath = new DOMXpath($dom);
   $elements = $xpath->evaluate(selector_to_xpath($selector));
-  return $as_array ? elements_to_array($elements) : $elements;
+  return $as_array ? elements_to_array($elements, $options) : $elements;
 }
 
 /**
@@ -46,7 +46,7 @@ function element_to_array($element) {
     'name' => $element->nodeName,
     'attributes' => array(),
     'text' => $element->textContent,
-    'children' => elements_to_array($element->childNodes)
+    'children' =>elements_to_array($element->childNodes)
     );
   foreach((array) $element->attributes as $key => $attr)
     $array['attributes'][$key] = $attr->value;
