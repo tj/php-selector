@@ -25,7 +25,7 @@ class SelectorDOM {
   
   public function select($selector, $as_array = true) {
     $elements = $this->xpath->evaluate(selector_to_xpath($selector));
-    return $as_array ? elements_to_array($elements) : $element;
+    return $as_array ? elements_to_array($elements) : $elements;
   }
 }
 
