@@ -29,6 +29,7 @@ test('[id]',                'descendant-or-self::*[@id]');
 test('[id=bar]',            'descendant-or-self::*[@id="bar"]');
 test('foo[id=bar]',         'descendant-or-self::foo[@id="bar"]');
 test(':button',             'descendant-or-self::input[@type="button"]');
+test('textarea',            'descendant-or-self::textarea');
 test(':submit',             'descendant-or-self::input[@type="submit"]');
 test(':first-child',        'descendant-or-self::*/*[position()=1]');
 test('div:first-child',     'descendant-or-self::*/div[position()=1]');
