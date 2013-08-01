@@ -84,48 +84,57 @@ function element_to_array($element) {
  */
 
 function selector_to_xpath($selector) {
-  $selector = 'descendant-or-self::' . $selector;
-  // ,
-  $selector = preg_replace('/\s*,\s*/', '|descendant-or-self::', $selector);
-  // :button, :submit, etc; @Note: we already have :: in the beginning, so check for 3rd column
-  $selector = preg_replace('/:::(button|submit|file|checkbox|radio|image|reset|text|password)/', '::input[@type="\1"]', $selector);
-  // [id]
-  $selector = preg_replace('/\[(\w+)\]/', '*[@\1]', $selector);
-  // foo[id=foo]
-  $selector = preg_replace('/\[(\w+)=[\'"]?(.*?)[\'"]?\]/', '[@\1="\2"]', $selector);
-  // [id=foo]
-  $selector = str_replace(':[', ':*[', $selector);
-  // div#foo
-  $selector = preg_replace('/([\w\-]+)\#([\w\-]+)/', '\1[@id="\2"]', $selector);
-  // #foo
-  $selector = preg_replace('/\#([\w\-]+)/', '*[@id="\1"]', $selector);
-  // div.foo
-  $selector = preg_replace('/([\w\-]+)\.([\w\-]+)/', '\1[contains(@class,"\2")]', $selector);
-  // .foo
-  $selector = preg_replace('/\.([\w\-]+)/', '*[contains(@class,"\1")]', $selector);
-  // div:first-child
-  $selector = preg_replace('/([\w\-]+):first-child/', '*/\1[position()=1]', $selector);
-  // div:last-child
-  $selector = preg_replace('/([\w\-]+):last-child/', '*/\1[position()=last()]', $selector);
-  // :first-child
-  $selector = str_replace(':first-child', '*/*[position()=1]', $selector);
-  // :last-child
-  $selector = str_replace(':last-child', '*/*[position()=last()]', $selector);
-  // div:nth-child
-  $selector = preg_replace('/([\w\-]+):nth-child\((\d+)\)/', '*/\1[position()=\2]', $selector);
-  // :nth-child
-  $selector = preg_replace('/:nth-child\((\d+)\)/', '*/*[position()=\1]', $selector);
-  // :contains(Foo)
-  $selector = preg_replace('/([\w\-]+):contains\((.*?)\)/', '\1[contains(string(.),"\2")]', $selector);
-  // >
-  $selector = preg_replace('/\s*>\s*/', '/', $selector);
-  // ~
-  $selector = preg_replace('/\s*~\s*/', '/following-sibling::', $selector);
-  // + 
-  $selector = preg_replace('/\s*\+\s*([\w\-]+)/', '/following-sibling::\1[position()=1]', $selector);
+  // remove spaces around operators
+  $selector = preg_replace('/\s*>\s*/', '>', $selector);
+  $selector = preg_replace('/\s*~\s*/', '~', $selector);
+  $selector = preg_replace('/\s*\+\s*/', '+', $selector);
+  $selector = preg_replace('/\s*,\s*/', ',', $selector);
+  $selectors = preg_split("/\s+/", $selector);
+ 
+  foreach ($selectors as &$selector) {
+  	// ,
+  	$selector = preg_replace('/\s*,\s*/', '|descendant-or-self::', $selector);
+  	// :button, :submit, etc 
+  	$selector = preg_replace('/:(button|submit|file|checkbox|radio|image|reset|text|password)/', 'input[@type="\1"]', $selector);
+  	// [id]
+  	$selector = preg_replace('/\[(\w+)\]/', '*[@\1]', $selector);
+  	// foo[id=foo]        
+  	$selector = preg_replace('/\[(\w+)=[\'"]?(.*?)[\'"]?\]/', '[@\1="\2"]', $selector);
+  	// [id=foo]
+  	$selector = preg_replace('/^\[/', '*[', $selector);
+        // div#foo
+  	$selector = preg_replace('/([\w\-]+)\#([\w\-]+)/', '\1[@id="\2"]', $selector);
+  	// #foo
+  	$selector = preg_replace('/\#([\w\-]+)/', '*[@id="\1"]', $selector);
+  	// div.foo
+  	$selector = preg_replace('/([\w\-]+)\.([\w\-]+)/', '\1[contains(concat(" ",@class," ")," \2 ")]', $selector);
+  	// .foo
+  	$selector = preg_replace('/\.([\w\-]+)/', '*[contains(concat(" ",@class," ")," \1 ")]', $selector);
+  	// div:first-child
+  	$selector = preg_replace('/([\w\-]+):first-child/', '*/\1[position()=1]', $selector);
+  	// div:last-child
+  	$selector = preg_replace('/([\w\-]+):last-child/', '*/\1[position()=last()]', $selector);
+  	// :first-child
+  	$selector = str_replace(':first-child', '*/*[position()=1]', $selector);
+  	// :last-child
+  	$selector = str_replace(':last-child', '*/*[position()=last()]', $selector);
+  	// div:nth-child
+  	$selector = preg_replace('/([\w\-]+):nth-child\((\d+)\)/', '*/\1[position()=\2]', $selector);
+  	// :nth-child
+  	$selector = preg_replace('/:nth-child\((\d+)\)/', '*/*[position()=\1]', $selector);
+  	// :contains(Foo)
+  	$selector = preg_replace('/([\w\-]+):contains\((.*?)\)/', '\1[contains(string(.),"\2")]', $selector);
+  	// >
+  	$selector = preg_replace('/\s*>\s*/', '/', $selector);
+  	// ~
+  	$selector = preg_replace('/\s*~\s*/', '/following-sibling::', $selector);
+  	// + 
+  	$selector = preg_replace('/\s*\+\s*([\w\-]+)/', '/following-sibling::\1[position()=1]', $selector);
+	$selector = str_replace(']*', ']', $selector);
+  	$selector = str_replace(']/*', ']', $selector);
+  }  
   // ' '
-  $selector = preg_replace('/\s+/', '/descendant::', $selector);
-  $selector = str_replace(']*', ']', $selector);
-  $selector = str_replace(']/*', ']', $selector);
+  $selector = implode('/descendant::', $selectors);
+  $selector = 'descendant-or-self::' . $selector;
   return $selector;
 }

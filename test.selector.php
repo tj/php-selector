@@ -23,8 +23,8 @@ test('foo>bar',             'descendant-or-self::foo/bar');
 test('foo> bar',            'descendant-or-self::foo/bar');
 test('div#foo',             'descendant-or-self::div[@id="foo"]');
 test('#foo',                'descendant-or-self::*[@id="foo"]');
-test('div.foo',             'descendant-or-self::div[contains(@class,"foo")]');
-test('.foo',                'descendant-or-self::*[contains(@class,"foo")]');
+test('div.foo',             'descendant-or-self::div[contains(concat(" ",@class," ")," foo ")]');
+test('.foo',                'descendant-or-self::*[contains(concat(" ",@class," ")," foo ")]');
 test('[id]',                'descendant-or-self::*[@id]');
 test('[id=bar]',            'descendant-or-self::*[@id="bar"]');
 test('foo[id=bar]',         'descendant-or-self::foo[@id="bar"]');
@@ -45,8 +45,8 @@ test('foo + bar + baz',     'descendant-or-self::foo/following-sibling::bar[posi
 test('foo > bar > baz',     'descendant-or-self::foo/bar/baz');
 test('p ~ p ~ p',           'descendant-or-self::p/following-sibling::p/following-sibling::p');
 test('div#article p em',    'descendant-or-self::div[@id="article"]/descendant::p/descendant::em');
-test('div.foo:first-child', 'descendant-or-self::div[contains(@class,"foo")][position()=1]');
-test('form#login > input[type=hidden]._method', 'descendant-or-self::form[@id="login"]/input[@type="hidden"][contains(@class,"_method")]');
+test('div.foo:first-child', 'descendant-or-self::div[contains(concat(" ",@class," ")," foo ")][position()=1]');
+test('form#login > input[type=hidden]._method', 'descendant-or-self::form[@id="login"]/input[@type="hidden"][contains(concat(" ",@class," ")," _method ")]');
 
 $html = <<<HTML
   <div id="article" class="block large">
