@@ -119,7 +119,7 @@ function selector_to_xpath($selector) {
   	// :last-child
   	$selector = str_replace(':last-child', '*/*[position()=last()]', $selector);
   	// div:nth-child
-  	$selector = preg_replace('/([\w\-]+):nth-child\((\d+)\)/', '*/\1[position()=\2]', $selector);
+  	$selector = preg_replace('/([\w\-]+):nth-child\((\d+)\)/', '*/*[position()=\2 and self::\1]', $selector);
   	// :nth-child
   	$selector = preg_replace('/:nth-child\((\d+)\)/', '*/*[position()=\1]', $selector);
   	// :contains(Foo)

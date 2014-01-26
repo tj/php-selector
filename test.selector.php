@@ -36,7 +36,7 @@ test('div:first-child',     'descendant-or-self::*/div[position()=1]');
 test(':last-child',         'descendant-or-self::*/*[position()=last()]');
 test('div:last-child',      'descendant-or-self::*/div[position()=last()]');
 test(':nth-child(2)',       'descendant-or-self::*/*[position()=2]');
-test('div:nth-child(2)',    'descendant-or-self::*/div[position()=2]');
+test('div:nth-child(2)',    'descendant-or-self::*/*[position()=2 and self::div]');
 test('foo + bar',           'descendant-or-self::foo/following-sibling::bar[position()=1]');
 test('li:contains(Foo)',    'descendant-or-self::li[contains(string(.),"Foo")]');
 
