@@ -2,7 +2,7 @@
 
 // --- Selector.inc - (c) Copyright TJ Holowaychuk <tj@vision-media.ca> MIT Licensed
 
-define('SELECTOR_VERSION', '1.1.3');
+define('SELECTOR_VERSION', '1.1.4');
 
 /**
  * SelectorDOM.
