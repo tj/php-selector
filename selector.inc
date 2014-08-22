@@ -118,6 +118,8 @@ function selector_to_xpath($selector) {
   	$selector = str_replace(':first-child', '*/*[position()=1]', $selector);
   	// :last-child
   	$selector = str_replace(':last-child', '*/*[position()=last()]', $selector);
+	// :nth-last-child
+	$selector = preg_replace('/:nth-last-child\((\d+)\)/', '[position()=(last()-\1)]', $selector);
   	// div:nth-child
   	$selector = preg_replace('/([\w\-]+):nth-child\((\d+)\)/', '*/*[position()=\2 and self::\1]', $selector);
   	// :nth-child
