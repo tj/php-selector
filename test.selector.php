@@ -28,6 +28,8 @@ test('.foo',                'descendant-or-self::*[contains(concat(" ",@class," 
 test('[id]',                'descendant-or-self::*[@id]');
 test('[id=bar]',            'descendant-or-self::*[@id="bar"]');
 test('foo[id=bar]',         'descendant-or-self::foo[@id="bar"]');
+test('[style=color: red; border: 1px solid black;]',            'descendant-or-self::*[@style="color: red; border: 1px solid black;"]');
+test('foo[style=color: red; border: 1px solid black;]',         'descendant-or-self::foo[@style="color: red; border: 1px solid black;"]');
 test(':button',             'descendant-or-self::input[@type="button"]');
 test('textarea',            'descendant-or-self::textarea');
 test(':submit',             'descendant-or-self::input[@type="submit"]');
