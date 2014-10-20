@@ -1,3 +1,7 @@
+=== 1.1.5 / 2014-10-20
+* Added nth-child-last support
+* Fixed attribute selectors
+
 === 1.1.4 / 2013-10-16
 
 ==== New features
