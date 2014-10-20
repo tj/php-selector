@@ -89,8 +89,8 @@ function selector_to_xpath($selector) {
   $selector = preg_replace('/\s*~\s*/', '~', $selector);
   $selector = preg_replace('/\s*\+\s*/', '+', $selector);
   $selector = preg_replace('/\s*,\s*/', ',', $selector);
-  $selectors = preg_split("/\s+/", $selector);
- 
+  $selectors = preg_split("/\s+(?![^\[]+\])/", $selector);
+
   foreach ($selectors as &$selector) {
   	// ,
   	$selector = preg_replace('/\s*,\s*/', '|descendant-or-self::', $selector);
