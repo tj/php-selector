@@ -102,6 +102,8 @@ test_selector('li:nth-last-child(3)', 1);
 test_selector('li:nth-last-child(4)', 1);
 test_selector('li:nth-last-child(6)', 0);
 test_selector('.a', 2);
+test_selector('ul $li > a', 1);
+test_selector(':scope ul $li > a', 1);
 $dom = new SelectorDom($html);
 print count($dom->select('a')) == 1 ? '.' : 'SelectorDOM failed';
 print count($dom->select('ul li a')) == 1 ? '.' : 'SelectorDOM failed';
