@@ -16,7 +16,7 @@ define('SELECTOR_VERSION', '1.1.6');
  */
 
 class SelectorDOM {
-  public function SelectorDOM($data) {
+  public function __construct($data) {
     if ($data instanceof DOMDocument) {
         $this->xpath = new DOMXpath($data);
     } else {
